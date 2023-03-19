@@ -3,10 +3,17 @@ public class Main {
         int[] arr = {12,13,14,5,15};
         sortArray(arr);
         displayArray(arr);
-        int findNumber = binarySearch(arr,14);
+        int findNumber = binarySearchIterative(arr,14);
+        int findNumberRecursive = binarySearchRecursive(arr,0,arr.length-1,14);
         if(findNumber>=0)
         {
             System.out.println("14 found at position: "+(findNumber+1));
+        }
+        else System.out.println("Number not found");
+
+        if(findNumberRecursive>=0)
+        {
+            System.out.println("14 found at position: "+(findNumberRecursive+1+" using recursion"));
         }
         else System.out.println("Number not found");
     }
@@ -32,7 +39,7 @@ public class Main {
         }
 
     }
-    public static int binarySearch(int[] arr,int value)
+    public static int binarySearchIterative(int[] arr, int value)
     {
         int start=0,end=arr.length;
         while(start<end)
@@ -53,6 +60,21 @@ public class Main {
             }
         }
         return -1;
+    }
+    public static int binarySearchRecursive(int[] arr, int firstElement, int lastElement, int key)
+    {
+        int midIndex = firstElement +(lastElement-firstElement)/2;
+        if(arr[midIndex]==key)
+        {
+            return midIndex;
+        }
+        else if (key>arr[midIndex])
+        {
+            // array to the right is active now
+            return (binarySearchRecursive(arr,midIndex+1,lastElement,key));
+        }
+        else
+            return (binarySearchRecursive(arr,firstElement,midIndex,key));
     }
     public static void displayArray(int[] a)
     {
