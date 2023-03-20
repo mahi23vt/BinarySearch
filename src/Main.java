@@ -4,7 +4,7 @@ public class Main {
         sortArray(arr);
         displayArray(arr);
         int findNumber = binarySearchIterative(arr,14);
-        int findNumberRecursive = binarySearchRecursive(arr,0,arr.length-1,14);
+        int findNumberRecursive = binarySearchRecursive(arr,0,arr.length-1,3);
         if(findNumber>=0)
         {
             System.out.println("14 found at position: "+(findNumber+1));
@@ -63,18 +63,23 @@ public class Main {
     }
     public static int binarySearchRecursive(int[] arr, int firstElement, int lastElement, int key)
     {
-        int midIndex = firstElement +(lastElement-firstElement)/2;
-        if(arr[midIndex]==key)
+        if(lastElement>=firstElement && firstElement<=arr.length-1)
         {
-            return midIndex;
+            int midIndex = firstElement +(lastElement-firstElement)/2;
+            if(arr[midIndex]==key)
+            {
+                return midIndex;
+            }
+            else if (key>arr[midIndex])
+            {
+                // array to the right is active now
+                return (binarySearchRecursive(arr,midIndex+1,lastElement,key));
+            }
+            else
+                return (binarySearchRecursive(arr,firstElement,midIndex,key));
         }
-        else if (key>arr[midIndex])
-        {
-            // array to the right is active now
-            return (binarySearchRecursive(arr,midIndex+1,lastElement,key));
-        }
-        else
-            return (binarySearchRecursive(arr,firstElement,midIndex,key));
+        return -1;
+
     }
     public static void displayArray(int[] a)
     {
